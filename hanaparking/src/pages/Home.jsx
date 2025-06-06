@@ -5,7 +5,7 @@ function Home() {
   return (
     <div className="home-container">
       <header className="home-header">
-        <div className="menu-icon">☰</div>
+        {/* <div className="menu-icon">☰</div> */}
         <h1 className="header-title">실시간 주차현황</h1>
       </header>
 

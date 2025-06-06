@@ -10,24 +10,23 @@
   .home-header {
     background-color: #6586e9;
     color: white;
-    padding: 24px 16px 48px;
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
+    padding: 0px 16px 35px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     position: relative;
   }
   
-  .menu-icon {
+  /* .menu-icon {
     font-size: 24px;
     position: absolute;
     top: 20px;
     left: 20px;
   }
-  
+   */
   .header-title {
     font-size: 20px;
     font-weight: bold;
-    text-align: center;
-    margin-top: 32px;
+    margin-top: 20px;
   }
   
   /* 콘텐츠 영역 */
@@ -37,13 +36,14 @@
     border-radius: 30px;
     padding: 24px 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1;
   }
   
   .section-title {
     color: black;
     font-size: 18px;
     font-weight: bold;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
   }
   
   /* 상태 카드 */
