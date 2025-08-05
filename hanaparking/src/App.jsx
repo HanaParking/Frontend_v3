@@ -1,16 +1,16 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home'
-import Detail from './pages/Detail'
+import Map from './pages/ParkingMap'
 import Header from './components/Header'
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen">
       <Header/>
-      <main className="flex-1 p-4">
+      <main className="p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
       </main>
     </div>

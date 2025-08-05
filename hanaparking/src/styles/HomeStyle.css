@@ -4,6 +4,7 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    min-width: 80vw
   }
   
   /* 헤더 영역 */
@@ -37,6 +38,7 @@
     padding: 24px 16px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     z-index: 1;
+    min-height: 70vh;
   }
   
   .section-title {
