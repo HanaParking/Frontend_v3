@@ -7,7 +7,7 @@ const ParkingMap = () => {
 
   // ✅ Redis Pub/Sub 기반 SSE 연결
   useEffect(() => {
-    const eventSource = new EventSource("http://localhost:8000/api/v1/redis/detail/subscribe");
+    const eventSource = new EventSource("http://98.81.145.104:8000/api/v1/redis/detail/subscribe");
 
     eventSource.onmessage = (event) => {
       try {

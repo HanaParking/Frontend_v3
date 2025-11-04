@@ -28,7 +28,7 @@ function Home() {
   const getParkingLotsInfo = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8000/api/v1/lot"
+        "http://98.81.145.104:8000/api/v1/lot"
       );
       const data = await response.json();
 
@@ -50,7 +50,7 @@ function Home() {
   // ✅ Redis Pub/Sub 기반 SSE 연결
   useEffect(() => {
     const eventSource = new EventSource(
-      "http://localhost:8000/api/v1/redis/detail/subscribe"
+      "http://98.81.145.104:8000/api/v1/redis/detail/subscribe"
     );
 
     eventSource.onmessage = (event) => {
