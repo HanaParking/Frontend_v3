@@ -12,11 +12,11 @@ function Home() {
   const [responseData, setResponseData] = useState([]); // 배열
 
   // 각 주차장별 상태 조회
-  const getStatusColor = (available, capacity) => {
+  const getStatusColor = (occupied, capacity) => {
     if (!capacity) return "gray";
-    const ratio = (available / capacity) * 100;
-    if (ratio >= 60) return "green";
-    if (ratio >= 30) return "yellow";
+    const ratio = (occupied / capacity) * 100;
+    if (ratio < 70) return "green";
+    if (ratio < 30) return "yellow";
     return "red";
   };
 
@@ -32,13 +32,12 @@ function Home() {
       );
       const data = await response.json();
 
-      // [{ lotCode, lotName, statusCd }, ...] 형태로 변환
       const formatted = data.map((lot) => ({
-        lotCode: lot.lotCode,
-        lotName: lot.lotName,
-        statusCd: lot.statusCd,
+        lotCode: lot.lot_code,
+        lotName: lot.lot_name,
+        statusCd: lot.status_cd,
         capacity: 0,
-        available: 0,
+        occupied: 0
       }));
 
       setResponseData(formatted);
@@ -47,59 +46,58 @@ function Home() {
     }
   };
 
-  // ✅ Redis Pub/Sub 기반 SSE 연결
   useEffect(() => {
-    const eventSource = new EventSource(
-      "http://98.81.145.104:8000/api/v1/redis/detail/subscribe"
-    );
-
-    eventSource.onmessage = (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        const positions = data.positions || [];
-        const carExists = data.carExists || [];
-
-        // 총 자리(capacity)
-        let capacity = 0;
-        positions.forEach((row) => {
-          capacity += row.filter((p) => p === 1).length;
-        });
-
-        // 남은 자리(available)
-        let available = 0;
-        positions.forEach((row, i) => {
-          row.forEach((p, j) => {
-            if (p === 1 && carExists[i] && carExists[i][j] === false) {
-              available++;
-            }
+    const connectSSE = () => {
+      const eventSource = new EventSource(
+        "http://98.81.145.104:8000/api/v1/redis/detail/subscribe"
+      );
+  
+      eventSource.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          const positions = data.positions || [];
+          const carExists = data.carExists || [];
+  
+          let capacity = 0;
+          positions.forEach((row) => {
+            capacity += row.filter((p) => p === 1).length;
           });
-        });
-
-        setResponseData((prev) => {
-          if (prev.length === 0) return prev; //데이터 없을 경우
-          const updated = [...prev];
-          updated[0] = {
-            ...updated[0],
-            capacity,
-            available,
-          };
-          return updated;
-        });
-
-        console.log("🔄 SSE 데이터 업데이트됨:", { capacity, available });
-      } catch (err) {
-        console.error("JSON 파싱 오류:", err);
-      }
+  
+          let occupied = 0;
+          positions.forEach((row, i) => {
+            row.forEach((p, j) => {
+              if (p === 1 && carExists[i] && carExists[i][j] === true) {
+                occupied++;
+              }// 주차 가능 구역이면서 주차가 되어있는 수
+            });
+          });
+  
+          // capacity, occupied만 업데이트
+          setResponseData((prev) =>
+            prev.map((lot, idx) =>
+              idx === 0
+                ? { ...lot, capacity, occupied }
+                : lot
+            )
+          );
+        } catch (err) {
+          console.error("JSON 파싱 오류:", err);
+        }
+      };
+  
+      eventSource.onerror = () => {
+        console.warn("⚠️ SSE 연결 오류. 3초 후 재연결 시도...");
+        eventSource.close();
+        setTimeout(connectSSE, 3000); // 자동 재연결
+      };
+  
+      return eventSource;
     };
-
-    eventSource.onerror = () => {
-      console.warn("⚠️ SSE 연결 오류, 재연결 시도 중...");
-      eventSource.close();
-      setTimeout(() => window.location.reload(), 3000);
-    };
-
-    return () => eventSource.close();
+  
+    const source = connectSSE();
+    return () => source.close();
   }, []);
+  
 
   return (
     <div className="home-container">
@@ -114,10 +112,10 @@ function Home() {
           <p>주차장 정보를 불러오는 중...</p>
         ) : (
           responseData.map((lot, index) => {
-            const status = getStatusColor(lot.available, lot.capacity);
+            const status = getStatusColor(lot.occupied, lot.capacity);
             return (
               <div
-                className={`status-card ${status}`}
+                className="status-card occupied"
                 onClick={goToMap}
                 key={lot.lotCode || index}
                 style={{ cursor: "pointer" }}
@@ -127,7 +125,7 @@ function Home() {
                   <span>{lot.lotName}</span>
                 </div>
                 <div className={`status-right ${status}-text`}>
-                  {lot.available} / {lot.capacity}
+                  {lot.occupied} / {lot.capacity}
                 </div>
               </div>
             );
