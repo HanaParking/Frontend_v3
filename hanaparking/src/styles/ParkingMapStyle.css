@@ -3,7 +3,8 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-width: 80vw
+  min-width: 80vw;
+  width: 100vw;
 }
 
 .map-content {
@@ -42,6 +43,10 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   z-index: 1;
   min-height: 70vh;
+  flex: 1;             /* 헤더 밑 남은 세로 공간 전부 채우기 */
+  width: 100%;         /* 가로도 부모를 꽉 채우기 */
+  box-sizing: border-box;
+  overflow: auto;      /* 주차칸 많으면 내부만 스크롤 */
 }
 
 .content-company {
