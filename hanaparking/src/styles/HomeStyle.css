@@ -4,34 +4,82 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-width: 80vw
-  }
-  
-  /* 헤더 영역 */
-  .home-header {
+    width: 100vw;
+    min-width: 80vw;
+}
+
+/* 헤더 영역 */
+.home-header {
     background-color: #6586e9;
     color: white;
-    padding: 0px 16px 35px;
+    padding: 10px 16px 60px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;   /* 좌: 햄버거, 우: 빈공간 */
     position: relative;
-  }
-  
-  /* .menu-icon {
-    font-size: 24px;
-    position: absolute;
-    top: 20px;
-    left: 20px;
-  }
-   */
-  .header-title {
+}
+
+/* 왼쪽(햄버거) */
+.header-left {
+    position: relative;  /* 드롭다운 기준점 */
+    display: flex;
+    align-items: center;
+}
+
+/* 햄버거 메뉴 아이콘 */
+.header-icon {
+    font-size: 25px;
+    font-weight: bold;
+    padding: 2px 16px 2px 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* 헤더 제목 */
+.header-title {
+    flex: 1;
+    text-align: center; /* 제목 가운데 위치 */
     font-size: 20px;
     font-weight: bold;
-    margin-top: 20px;
-  }
-  
-  /* 콘텐츠 영역 */
-  .content-container {
+    margin-top: 10px;
+    margin-right: 25px; /* 오른쪽 공간 확보 */
+}
+
+/* 드롭다운 전체 박스 */
+.dropdown-menu {
+    position: absolute;
+    top: 40px;        /* 햄버거 밑으로 내려오게 */
+    left: 0;          /* 햄버거 아래 정렬 */
+    width: 150px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    z-index: 999;
+    overflow: hidden;
+}
+
+/* 드롭다운 아이템 */
+.dropdown-item {
+    padding: 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background: #f2f2f2;
+}
+
+/* 콘텐츠 영역 */
+.content-container {
     background-color: white;
     margin: -40px 16px 0;
     border-radius: 30px;
@@ -39,17 +87,24 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     z-index: 1;
     min-height: 70vh;
-  }
-  
-  .section-title {
+}
+
+.section-title {
     color: black;
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
-  }
-  
-  /* 상태 카드 */
-  .status-card {
+}
+
+.section-subtext {
+    font-size: 13px;
+    color: #888;
+    margin-top: -4px;
+    margin-bottom: 12px;
+}
+
+/* 상태 카드 */
+.status-card {
     background-color: #fefaf3;
     border-radius: 10px;
     padding: 12px 16px;
@@ -58,58 +113,74 @@
     justify-content: space-between;
     align-items: center;
     box-shadow: 2px 4px 6px rgba(0,0,0,0.1);
-  }
-  
-  /* 상태 좌측 */
-  .status-left {
+}
+
+/* 상태 좌측 */
+.status-left {
     display: flex;
     align-items: center;
     gap: 8px;
-  }
-  
-  /* 동그라미 표시 */
-  .status-dot {
+}
+
+.status-dot {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-  }
-  
-  .green {
+}
+
+.green {
     background-color: #6ecf9a;
-  }
-  
-  /* 텍스트 색상 */
-  .green-text {
+}
+
+.green-text {
     color: #009f3c;
     font-weight: bold;
     font-size: 18px;
-  }
-  
-  .red-text {
+}
+
+.red-text {
     color: #e6535b;
     font-weight: bold;
     font-size: 18px;
     text-shadow: 1px 1px #00000020;
-  }
-  
-  /* 혼잡 배지 */
-  .alert-badge {
-    background-color: #e6535b;
-    color: white;
-    font-size: 12px;
-    border-radius: 9999px;
-    padding: 4px 12px;
-  }
-  
-  /* 푸터 */
-  .footer {
+}
+
+.footer {
     margin-top: auto;
     padding: 16px;
     text-align: center;
     font-size: 12px;
     color: #888;
-  }
-  
-  span {
+}
+
+span {
     color: black;
-  }
+}
+
+.status-card.disabled-card {
+    background-color: #dcdcdc !important;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.status-card.disabled-card * {
+    color: #777 !important;
+}
+.yellow {
+    background-color: #f5d742;
+}
+
+.red {
+    background-color: #e6535b;
+}
+
+.gray {
+    background-color: #bfbfbf;
+}
+
+.yellow-text {
+    color: #f5d742;
+    font-weight: bold;
+    font-size: 18px;
+    text-shadow: 1px 1px #00000020;
+}

@@ -1,0 +1,211 @@
+.report-container {
+  background-color: #fefaf3;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.report-header {
+  margin-bottom: 16px;
+}
+
+.report-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.report-subtitle {
+  font-size: 13px;
+  color: #777;
+  margin-top: 4px;
+}
+
+.report-filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+.filter-group label {
+  margin-bottom: 4px;
+  color: #555;
+}
+
+.filter-group input,
+.filter-group select {
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 13px;
+}
+
+/* 요약 카드 */
+.report-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summary-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.summary-label {
+  font-size: 12px;
+  color: #777;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.summary-desc {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+}
+
+/* 차트 영역 */
+.report-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.chart-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.chart-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.chart-placeholder {
+  border-radius: 8px;
+  border: 1px dashed #ccc;
+  padding: 24px;
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+
+/* 테이블 */
+.report-table-section {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.report-table th,
+.report-table td {
+  padding: 6px 4px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+}
+
+.report-table th {
+  background-color: #f9f9f9;
+}
+
+/* 코멘트 */
+.report-comment {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  margin-bottom: 30px;
+}
+
+.comment-text {
+  font-size: 1
+}
+
+.ai-summary-card {
+  background: #f9fafb;
+}
+
+.ai-summary-card .summary-desc {
+  line-height: 1.5;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+}
+
+
+/* ⭐ AI 리포트 카드를 full-width로 만들기 */
+.ai-summary-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ⭐ AI 카드 자체 스타일 */
+.ai-summary-card {
+  width: 100% !important;
+  max-width: 100% !important;
+  background: #ffffff;
+  border: 1.5px solid #e5e7eb;
+  color: #111 !important; /* 글씨색 어둡게 */
+}
+
+/* ⭐ AI 텍스트 스타일 */
+.ai-summary-text {
+  color: #111 !important;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+/* ⭐ 테이블을 10개 row 정도 높이만큼 제한하고 내부 스크롤 처리 */
+.table-scroll-wrapper {
+  max-height: 330px; /* row 10개 정도 높이 */
+  overflow-y: auto;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+/* 스크롤바 스타일 (선택, 안 해도 됨) */
+.table-scroll-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+.table-scroll-wrapper::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
