@@ -102,19 +102,14 @@ const ParkingMap = () => {
 
   const totalCols = positions[0]?.length || 1;
 
-  // ⭐ created_at 포맷팅 도우미
-  const formatTime = (isoString) => {
-    if (!isoString) return '-';
-    const d = new Date(isoString);
-    return d.toLocaleTimeString('ko-KR', {
-      hour: '2-digit',
-      minute: '2-digit',
-    });
-  };
-
   const calcRate = (occ, cap) => {
     if (!cap || cap === 0) return '-';
     return ((occ / cap) * 100).toFixed(1);
+  };
+
+  // 🔗 최신 이미지 보기 버튼 클릭 핸들러
+  const openLatestImage = () => {
+    window.open('http://98.81.145.104:8000/api/v1/upload/img_latest', '_blank');
   };
 
   return (
@@ -134,6 +129,27 @@ const ParkingMap = () => {
       </header>
 
       <div className="content-container">
+
+        {/* 🔥 여기 새 버튼 추가 */}
+        <button
+          onClick={openLatestImage}
+          style={{
+            width: '100%',
+            padding: '10px 12px',
+            marginBottom: '10px',
+            borderRadius: '8px',
+            border: 'none',
+            backgroundColor: '#d2ceec',
+            color: '#fff',
+            fontSize: '0.95rem',
+            fontWeight: 600,
+            cursor: 'pointer',
+            boxShadow: '0 3px 8px rgba(0,0,0,0.18)',
+          }}
+        >
+         주차장 실황보기(이미지)
+        </button>
+        <p>**카메라가 흔들릴 경우 부정확할 수 있습니다</p>
 
         <div className="content-company">
           하나금융TI
