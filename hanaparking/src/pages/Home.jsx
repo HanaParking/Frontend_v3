@@ -14,6 +14,7 @@ function Home() {
   const [showMenu, setShowMenu] = useState(false);
 
 
+
 const getStatusColor = (occupied, capacity) => {
   if (!capacity) return "gray"; // capacity 0일 때
   
@@ -50,6 +51,7 @@ const formatDateTime = (isoString) => {
   const getParkingLotsInfo = async () => {
     try {
       const response = await fetch("http://98.81.145.104:8000/api/v1/lot/lots");
+      //const response = await fetch("http://127.0.0.1:8000/api/v1/lot/lots");
       const data = await response.json();
 
       // 🔵 A1의 created_at 찾아서 저장
@@ -91,9 +93,10 @@ const formatDateTime = (isoString) => {
 
       <div className="content-container">
         <h2 className="section-title">청라데이터센터</h2>
+        {/*}
         <p className="section-subtext">
           기준 시각: {createdAt ? formatDateTime(createdAt) : "로딩 중..."}
-          </p>
+          </p> */}
 
         {responseData.length === 0 ? (
           <p>주차장 정보를 불러오는 중...</p>

@@ -27,6 +27,7 @@ function CommuteReportPage() {
   const [aiError, setAiError] = useState(null);
 
   const API_BASE = "http://98.81.145.104:8000/api/v1/report";
+  //const API_BASE = "http://127.0.0.1:8000/api/v1/report";
 
   // ⭐ 날짜 기본값 (어제)
   const getYesterday = () => {

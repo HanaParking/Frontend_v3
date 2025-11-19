@@ -19,8 +19,8 @@ const ParkingMap = () => {
     const fetchInitialData = async () => {
       try {
         const res = await fetch(
-          'http://98.81.145.104:8000/api/v1/lot/recent?lot_code=A1'
-          // 'http://127.0.0.1:8000/api/v1/lot/recent?lot_code=A1'
+          //'http://98.81.145.104:8000/api/v1/lot/recent?lot_code=A1'
+          'http://127.0.0.1:8000/api/v1/lot/recent?lot_code=A1'
         );
 
         if (!res.ok) {
@@ -42,7 +42,7 @@ const ParkingMap = () => {
       try {
         const res = await fetch(
           //'http://127.0.0.1:8000/api/v1/lot/lots'
-           'http://98.81.145.104:8000/api/v1/lot/lots'
+          'http://98.81.145.104:8000/api/v1/lot/lots'
         );
 
         if (!res.ok) {
@@ -130,30 +130,15 @@ const ParkingMap = () => {
             </div>
           )}
         </div>
-          <h1 className="header-title">옥외주차장</h1>
+        <h1 className="header-title">옥외주차장</h1>
       </header>
 
       <div className="content-container">
-        
-        <div className="content-company">하나금융TI{/* ⭐ 여기 A1 현황 표시 */}
-          {/*lotSummary && (
-            <p
-              style={{
-                marginTop: '4px',
-                fontSize: '0.9rem',
-                color: '#111',
-                marginLeft: 'auto',   // ⭐ 오른쪽 끝으로 이동
-                opacity: 0.85,
-              }}
-            >
-              현재 : {" "}
-              <strong>{lotSummary.occupied}</strong> / {lotSummary.capacity}대
-              {lotSummary.capacity > 0 && (
-                <> ({calcRate(lotSummary.occupied, lotSummary.capacity)}%)</>
-              )}
-            </p>
-          )*/}</div>
-        
+
+        <div className="content-company">
+          하나금융TI
+          {/* 요약 텍스트는 필요 시 다시 활성화 */}
+        </div>
 
         <div
           style={{
@@ -172,7 +157,31 @@ const ParkingMap = () => {
               >
                 {row.map((cell, yIndex) => {
                   const isParking = cell === 1;
-                  const hasCar = carExists[xIndex]?.[yIndex];
+                  const status = carExists[xIndex]?.[yIndex]; // 0/1/2 또는 undefined
+
+                  // 🔥 상태별 색상 지정
+                  let bgColor = '#FFF';
+                  let borderColor = 'transparent';
+
+                  if (isParking) {
+                    borderColor = '#F8BE80';
+
+                    if (status === 1) {
+                      // 차 있음
+                      bgColor = '#E76071';
+                    } else if (status === 0) {
+                      // 빈자리
+                      bgColor = '#F8BE80';
+                    } else if (status === 2) {
+                      // ROI 없음 / 비활성 구역
+                      bgColor = '#D3D3D3'; // 회색
+                      borderColor = '#B0B0B0';
+                    } else {
+                      // 혹시 모를 undefined 등
+                      bgColor = '#FFFFFF';
+                      borderColor = '#EEE';
+                    }
+                  }
 
                   return (
                     <div
@@ -181,14 +190,8 @@ const ParkingMap = () => {
                         flex: `0 0 ${100 / totalCols}%`,
                         aspectRatio: '2 / 2.5',
                         boxSizing: 'border-box',
-                        backgroundColor: isParking
-                          ? hasCar
-                            ? '#E76071' // 차 있음
-                            : '#F8BE80' // 빈자리
-                          : '#FFF',     // 주차 구역 아님
-                        border: isParking
-                          ? '1px solid #F8BE80'
-                          : '1px solid transparent',
+                        backgroundColor: bgColor,
+                        border: `1px solid ${borderColor}`,
                         borderRadius: '4px',
                         boxShadow: isParking
                           ? '2px 3px 6px rgba(0,0,0,0.1)'
